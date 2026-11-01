@@ -11,7 +11,7 @@ class TestBurgerConstructionAndMethods:
         assert sample_burger.bun is None
         assert sample_burger.ingredients == []
 
-    def test_assign_buns_updates_bun_attribute(self):
+    def test_set_buns_updates_bun_attribute(self):
         sample_burger = Burger()
         fake_bun = Mock(spec=Bun)
         
@@ -20,7 +20,7 @@ class TestBurgerConstructionAndMethods:
         assert sample_burger.bun == fake_bun
 
     @pytest.mark.parametrize("components_volume", [1, 3])
-    def test_insert_ingredient_appends_to_internal_list(self, components_volume):
+    def test_add_ingredient_appends_to_internal_list(self, components_volume):
         sample_burger = Burger()
         
         for _ in range(components_volume):
@@ -29,7 +29,7 @@ class TestBurgerConstructionAndMethods:
             
         assert len(sample_burger.ingredients) == components_volume
 
-    def test_exclude_ingredient_pops_exact_element_by_index(self):
+    def test_remove_ingredient_pops_exact_element_by_index(self):
         sample_burger = Burger()
         first_topping = Mock(spec=Ingredient)
         second_topping = Mock(spec=Ingredient)
@@ -46,7 +46,7 @@ class TestBurgerConstructionAndMethods:
         (0, 1, "topping_b"),
         (1, 0, "topping_b")
     ])
-    def test_reorder_ingredients_swaps_positions_correctly(self, initial_pos, target_pos, expected_leader):
+    def test_move_ingredient_swaps_positions_correctly(self, initial_pos, target_pos, expected_leader):
         sample_burger = Burger()
         topping_a = Mock(spec=Ingredient)
         topping_b = Mock(spec=Ingredient)
@@ -59,7 +59,7 @@ class TestBurgerConstructionAndMethods:
         index_map = {"topping_a": topping_a, "topping_b": topping_b}
         assert sample_burger.ingredients[0] == index_map[expected_leader]
 
-    def test_calculate_total_cost_aggregates_buns_and_toppings(self):
+    def test_get_price_aggregates_buns_and_toppings(self):
         sample_burger = Burger()
         
         bread_price = 125.50
@@ -82,7 +82,7 @@ class TestBurgerConstructionAndMethods:
         
         assert sample_burger.get_price() == expected_total
 
-    def test_generate_receipt_creates_valid_text_invoice(self):
+    def test_get_receipt_creates_valid_text_invoice(self):
         sample_burger = Burger()
         
         fake_bun = Mock(spec=Bun)
